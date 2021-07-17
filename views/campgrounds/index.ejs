@@ -7,6 +7,12 @@
     <title>YelpCamp</title>
   </head>
   <body>
-    <h1>YelpCamp</h1>
+    <h1>All Campgrounds</h1>
+    <a href="/campgrounds/new">Add New Campground</a>
+    <ul>
+      <% for (let camp of campgrounds) { %>
+        <li><a href="/campgrounds/<%= camp._id %>"><%= camp.title %></a></li>
+      <% } %> 
+    </ul>
   </body>
 </html>
