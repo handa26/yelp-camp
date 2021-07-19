@@ -2,7 +2,12 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+    <form
+      action="/campgrounds/<%= campground._id %>?_method=PUT"
+      method="POST"
+      class="validate-form"
+      novalidate
+    >
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input
@@ -61,7 +66,9 @@
           name="campground[description]"
           id="description"
           required
-        ><%= campground.description %></textarea>
+        >
+<%= campground.description %></textarea
+        >
       </div>
       <div class="mb-3 mt-4">
         <button class="btn btn-info">Update Campground</button>
