@@ -15,6 +15,7 @@ const User = require("./models/user");
 
 const campgrounds = require("./routes/campgrounds");
 const reviews = require("./routes/reviews");
+const userRoutes = require("./routes/users");
 
 mongoose.connect("mongodb://localhost:27017/yelpCampDB", {
   useNewUrlParser: true,
@@ -74,6 +75,7 @@ app.get("/fakeUser", async (req, res) => {
 // Routes
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
+app.use("/register", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
