@@ -1,0 +1,58 @@
+* {
+  box-sizing: 0;
+}
+
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/assets/camping-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  max-width: 1140px;
+}
+
+/* === Navbar === */
+.navbar-dark .navbar-brand {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  font-weight: bold;
+  color: #fff;
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link:active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* === Hero Text */
+.hero-text-box {
+  width: 50%;
+  color: #fff;
+  margin-top: 150px;
+}
+
+.btn {
+  width: 50%;
+  padding: 10px;
+}
+
+.btn-primary {
+  border-radius: 20px;
+  background-color: #5089C6;
+  border-color: #5089C6;
+}
