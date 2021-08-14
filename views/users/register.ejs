@@ -1,5 +1,27 @@
 <% layout("layouts/boilerplate") %>
-<h1>Register</h1>
+
+<div class="form-page">
+  <div class="form">
+    <form action="/register" method="POST">
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Username"
+        required
+      />
+      <input type="email" name="email" id="email" placeholder="example@gmail.com" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <button type="submit">Create</button>
+      <p class="message">
+        Already registered?
+        <a href="/login">Sign In</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- <h1>Register</h1>
 <form action="/register" method="POST" class="validate-form" novalidate>
   <div class="mb-3">
     <label class="form-label" for="username">Username</label>
@@ -34,4 +56,4 @@
   <div class="mb-3 mt-4">
     <button class="btn btn-success">Register</button>
   </div>
-</form>
+</form> -->

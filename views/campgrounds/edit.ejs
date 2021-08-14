@@ -32,10 +32,29 @@
         />
       </div>
       <div class="mb-3">
-        <label for="image" class="form-label">
-          Add more images
-        </label>
-        <input class="form-control" type="file" id="image" name="image" multiple />
+        <label for="image" class="form-label">Add more images or delete previous images by clicking checkbox</label>
+        <input
+          class="form-control"
+          type="file"
+          id="image"
+          name="image"
+          multiple
+        />
+      </div>
+      <div class="mb-3 campground-edit-images">
+        <% campground.images.forEach((image, index) => { %>
+        <div class="campground-edit-images__image">
+          <img src="<%= image.thumbnail %>" alt="" />
+          <div class="form-check-inline">
+            <input
+              type="checkbox"
+              name="deleteImages[]"
+              id="image-<%= index %>"
+              value="<%= image.filename %>"
+            />
+          </div>
+        </div>
+        <% }) %>
       </div>
       <div class="mb-3">
         <label class="form-label" for="price">Price</label>
@@ -65,20 +84,6 @@
         >
 <%= campground.description %></textarea
         >
-      </div>
-      <div class="mb-3">
-        <% campground.images.forEach((image, index) => { %>
-          <img class="img-thumbnail" src="<%= image.thumbnail %>" alt="">
-          <div class="form-check-inline">
-            <label for="image-<%= index %>">Delete</label>
-            <input 
-              type="checkbox" 
-              name="deleteImages[]" 
-              id="image-<%= index %>" 
-              value="<%= image.filename %>"
-            >
-          </div>
-        <% }) %> 
       </div>
       <div class="mb-3 mt-4">
         <button class="btn btn-info">Update Campground</button>
