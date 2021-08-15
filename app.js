@@ -2,6 +2,9 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+const dbAtlasUrl = process.env.DB_URL;
+const dbLocalUrl = "mongodb://localhost:27017/yelpCampDB";
+
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -23,7 +26,9 @@ const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
-mongoose.connect("mongodb://localhost:27017/yelpCampDB", {
+const MongoStore = require("connect-mongo");
+
+mongoose.connect(dbLocalUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -61,6 +66,7 @@ const scriptSrcUrls = [
   "https://cdnjs.cloudflare.com/",
   "https://cdn.jsdelivr.net",
 ];
+
 const styleSrcUrls = [
   "https://kit-free.fontawesome.com/",
   "https://stackpath.bootstrapcdn.com/",
@@ -70,13 +76,16 @@ const styleSrcUrls = [
   "https://use.fontawesome.com/",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
 ];
+
 const connectSrcUrls = [
   "https://api.mapbox.com/",
   "https://a.tiles.mapbox.com/",
   "https://b.tiles.mapbox.com/",
   "https://events.mapbox.com/",
 ];
+
 const fontSrcUrls = [];
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -98,7 +107,20 @@ app.use(
   })
 );
 
+const store = MongoStore.create({
+  mongoUrl: dbLocalUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "awesome",
+  },
+});
+
+store.on("error", function(e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
 const sessionConfig = {
+  store,
   name: "yelpcamp_session",
   secret: "awesome",
   resave: false,
