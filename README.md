@@ -14,7 +14,7 @@ npm install
 
 After install all dependecies, start developing by typing this:
 ```bash
-nodemon app.js
+npm run start-dev
 ```
 
 ## Screenshoots
@@ -28,4 +28,7 @@ nodemon app.js
 
   <h3>Campgrounds</h3>
   <img width="100%" src="./public/assets/campgrounds.png">
+
+  <h3>Campground Detail</h3>
+  <img width="100%" src="./public/assets/camp-detail.png">
 </div>
