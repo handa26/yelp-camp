@@ -25,7 +25,7 @@ const userRoutes = require("./routes/users");
 
 const MongoStore = require("connect-mongo");
 
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelpCampDB";
+const dbUrl = "mongodb://localhost:27017/yelpCampDB";
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -144,6 +144,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.currentUrl = req.url;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();

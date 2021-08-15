@@ -1,0 +1,81 @@
+/* TABLETS AND UNDER */
+@media (max-width: 1024px) {
+  .hero-text-box {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    margin: 80px 0 50px 0;
+  }
+
+  .btn {
+    /* width: 30% !important; */
+  }
+}
+
+/* TABLETS AND UNDER */
+@media (max-width: 768px) {
+  .navbar-dark .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-toggler {
+    background-color: #141e61;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    border: none;
+  }
+
+  .hero-text-box {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    margin: 70px 0 50px 0;
+  }
+
+  .campgrounds {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cluster-map {
+    height: 400px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+  body {
+    /* height: auto; */
+  }
+
+  .navbar-dark .navbar-nav {
+    text-align: center;
+  }
+
+  .hero-text-box {
+    width: 100%;
+    color: #fff;
+    margin-top: 70px;
+    margin-bottom: 50px;
+  }
+
+  .hero-text-box p {
+    font-size: 16px;
+  }
+
+  .campground-headline {
+    width: 100%;
+  }
+
+  .cluster-map {
+    height: 300px;
+  }
+
+  .campgrounds {
+    grid-template-columns: 1fr;
+  }
+
+  .campground {
+    margin-bottom: 20px;
+  }
+}

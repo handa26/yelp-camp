@@ -39,6 +39,11 @@ body {
 /* ================================================== */
 /* CAMPGROUNDS */
 /* ================================================== */
+.cluster-map {
+  width: 100%; 
+  height: 500px;
+}
+
 .campgrounds {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -111,7 +116,7 @@ body {
   z-index: 1;
   background: #ffffff;
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: -20px auto 100px;
   padding: 45px;
   text-align: center;
   border-radius: 10px;
@@ -162,6 +167,12 @@ body {
   text-decoration: none;
 }
 
+.form-tagline img {
+  height: 200px;
+  margin-bottom: -20;
+  margin-top: -100px;
+}
+
 
 /* ================================================== */
 /* FORM EDIT CAMPGROUND */
@@ -189,6 +200,16 @@ body {
   position: absolute;
   top: 0;
   left: 10px;
+}
+
+.campground-form button {
+  background-color: #141e61;
+  border-color: #141e61;
+  color: #fff;
+}
+
+.campground-form button:hover {
+  background-color: #1f2d8a;
 }
 
 

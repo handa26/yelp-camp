@@ -1,15 +1,15 @@
 <% layout("layouts/boilerplate") %>
 <div class="row">
-  <h1 class="text-center">Edit Campground</h1>
-  <div class="col-6 offset-3">
+  <h1 class="text-center mb-5" style="color: #141e61">Edit Campground</h1>
+  <div class="mx-auto">
     <form
       action="/campgrounds/<%= campground._id %>?_method=PUT"
       method="POST"
-      class="validate-form"
+      class="validate-form campground-form"
       enctype="multipart/form-data"
       novalidate
     >
-      <div class="mb-3">
+      <div class="mb-3 col-sm-6 col-12 mx-auto">
         <label class="form-label" for="title">Title</label>
         <input
           class="form-control"
@@ -20,7 +20,7 @@
           required
         />
       </div>
-      <div class="mb-3">
+      <div class="mb-3 col-sm-6 col-12 mx-auto">
         <label class="form-label" for="location">Location</label>
         <input
           class="form-control"
@@ -31,7 +31,7 @@
           required
         />
       </div>
-      <div class="mb-3">
+      <div class="mb-3 col-sm-6 col-12 mx-auto">
         <label for="image" class="form-label">Add more images or delete previous images by clicking checkbox</label>
         <input
           class="form-control"
@@ -41,7 +41,7 @@
           multiple
         />
       </div>
-      <div class="mb-3 campground-edit-images">
+      <div class="mb-3 campground-edit-images col-sm-6 col-12 mx-auto">
         <% campground.images.forEach((image, index) => { %>
         <div class="campground-edit-images__image">
           <img src="<%= image.thumbnail %>" alt="" />
@@ -56,7 +56,7 @@
         </div>
         <% }) %>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 col-sm-6 col-12 mx-auto">
         <label class="form-label" for="price">Price</label>
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
@@ -73,7 +73,7 @@
           />
         </div>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 col-sm-6 col-12 mx-auto">
         <label class="form-label" for="description">Description</label>
         <textarea
           class="form-control"
@@ -85,7 +85,7 @@
 <%= campground.description %></textarea
         >
       </div>
-      <div class="mb-3 mt-4">
+      <div class="mb-3 mt-4 col-sm-6 col-12 mx-auto">
         <button class="btn btn-info">Update Campground</button>
       </div>
     </form>
