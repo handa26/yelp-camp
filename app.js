@@ -2,9 +2,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const dbAtlasUrl = process.env.DB_URL;
-const dbLocalUrl = "mongodb://localhost:27017/yelpCampDB";
-
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -28,7 +25,9 @@ const userRoutes = require("./routes/users");
 
 const MongoStore = require("connect-mongo");
 
-mongoose.connect(dbLocalUrl, {
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelpCampDB";
+
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -107,11 +106,13 @@ app.use(
   })
 );
 
+const secret = process.env.SECRET || "awesome";
+
 const store = MongoStore.create({
-  mongoUrl: dbLocalUrl,
+  mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
-    secret: "awesome",
+    secret,
   },
 });
 
@@ -122,7 +123,7 @@ store.on("error", function(e) {
 const sessionConfig = {
   store,
   name: "yelpcamp_session",
-  secret: "awesome",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
