@@ -3,6 +3,19 @@ body {
 }
 
 /* ================================================== */
+/* REUSABLE CLASS */
+/* ================================================== */
+.btn-campground {
+  background-color: #141e61;
+  color: #fff;
+}
+
+.btn-campground:hover {
+  color: #fff;
+}
+
+
+/* ================================================== */
 /* NAVBAR */
 /* ================================================== */
 .navbar-dark .navbar-brand {
@@ -202,7 +215,7 @@ body {
   left: 10px;
 }
 
-.campground-form button {
+/* .campground-form button {
   background-color: #141e61;
   border-color: #141e61;
   color: #fff;
@@ -210,7 +223,7 @@ body {
 
 .campground-form button:hover {
   background-color: #1f2d8a;
-}
+} */
 
 
 /* ================================================== */

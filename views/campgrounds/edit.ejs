@@ -85,8 +85,28 @@
 <%= campground.description %></textarea
         >
       </div>
+      <div class="modal fade" id="updateCamp" tabindex="-1" aria-labelledby="update campground" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Campground</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to save this changes?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+              <button type="submit" class="btn btn-campground">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="mb-3 mt-4 col-sm-6 col-12 mx-auto">
-        <button class="btn btn-info">Update Campground</button>
+        <button type="button" class="btn btn-campground" data-bs-toggle="modal" data-bs-target="#updateCamp">
+          Update Campground
+        </button>
+        <!-- <button class="btn btn-campground">Update Campground</button> -->
       </div>
     </form>
   </div>

@@ -61,7 +61,26 @@
           class="d-inline"
           method="POST"
         >
-          <button class="btn btn-danger">Delete</button>
+          <div class="modal fade" id="deleteCamp" tabindex="-1" aria-labelledby="delete campground" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete Campground</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete this campground?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+                  <button type="submit" class="btn btn-campground">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCamp">
+            Delete
+          </button>
         </form>
       </div>
       <% } %>
