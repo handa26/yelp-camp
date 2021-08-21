@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const express = require("express");
-const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
@@ -13,77 +12,48 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const connectDB = require("./config/db");
+const MongoStore = require("connect-mongo");
 const path = require("path");
 
 const ExpressError = require("./utils/ExpressError");
+const HelmetConfig = require("./utils/HelmetConfig");
 
 const User = require("./models/user");
 
-const campgroundRoutes = require("./routes/campgrounds");
-const reviewRoutes = require("./routes/reviews");
-const userRoutes = require("./routes/users");
-
-const MongoStore = require("connect-mongo");
+// Database
+connectDB();
 
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelpCampDB";
 
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Database connected");
-});
-
 const app = express();
 
+// Body Parser
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+
+// Static Assets
+app.use(express.static(path.join(__dirname, "public")));
+
+// EJS Templating
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-app.use(express.static(path.join(__dirname, "public")));
+// Flash Message
 app.use(flash());
-app.use(helmet({ contentSecurityPolicy: false }));
+
+// Database Security
 app.use(
   mongoSanitize({
     replaceWith: "_",
   })
 );
 
-const scriptSrcUrls = [
-  "https://stackpath.bootstrapcdn.com/",
-  "https://api.tiles.mapbox.com/",
-  "https://api.mapbox.com/",
-  "https://kit.fontawesome.com/",
-  "https://cdnjs.cloudflare.com/",
-  "https://cdn.jsdelivr.net",
-];
+// Content Policy Rules
+app.use(helmet({ contentSecurityPolicy: false }));
 
-const styleSrcUrls = [
-  "https://kit-free.fontawesome.com/",
-  "https://stackpath.bootstrapcdn.com/",
-  "https://api.mapbox.com/",
-  "https://api.tiles.mapbox.com/",
-  "https://fonts.googleapis.com/",
-  "https://use.fontawesome.com/",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
-];
-
-const connectSrcUrls = [
-  "https://api.mapbox.com/",
-  "https://a.tiles.mapbox.com/",
-  "https://b.tiles.mapbox.com/",
-  "https://events.mapbox.com/",
-];
-
-const fontSrcUrls = [];
+const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = HelmetConfig;
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -106,8 +76,8 @@ app.use(
   })
 );
 
+// Mongo Session
 const secret = process.env.SECRET || "awesome";
-
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
@@ -120,6 +90,7 @@ store.on("error", function(e) {
   console.log("SESSION STORE ERROR", e);
 });
 
+// Local Session
 const sessionConfig = {
   store,
   name: "yelpcamp_session",
@@ -135,6 +106,7 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 
+// Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -142,6 +114,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Set Global Variables
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.currentUrl = req.url;
@@ -151,9 +124,9 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/reviews", reviewRoutes);
-app.use("/", userRoutes);
+app.use("/campgrounds", require("./routes/campgrounds"));
+app.use("/campgrounds/:id/reviews", require("./routes/reviews"));
+app.use("/", require("./routes/users"));
 
 app.get("/", (req, res) => {
   res.render("home");
